@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'javax.inject:javax.inject:1'
+    }
+}
+
+task clean(type: Delete) {
+    delete 'build'
+}
+
+
+//
+// Firefox tasks
+//
+task copyFirefoxBrowserFiles (type: CopyBrowserFilesTask, constructorArgs: ['firefox'])
+task copyFirefoxCommonFiles (type: CopyCommonFilesTask, constructorArgs: ['firefox'])
+task buildFirefox {
+    doLast {
+        println 'firefox built'
+    }
+}
+buildFirefox.dependsOn copyFirefoxBrowserFiles
+buildFirefox.dependsOn copyFirefoxCommonFiles
+
+
+
+//
+// Edge tasks
+//
+task copyEdgeBrowserFiles (type: CopyBrowserFilesTask, constructorArgs: ['edge'])
+task copyEdgeCommonFiles (type: CopyCommonFilesTask, constructorArgs: ['edge'])
+task buildEdge {
+    doLast {
+        println 'edge built'
+    }
+}
+buildEdge.dependsOn copyEdgeBrowserFiles
+buildEdge.dependsOn copyEdgeCommonFiles
+
+
+//
+// Chrome tasks
+//
+task copyChromeBrowserFiles (type: CopyBrowserFilesTask, constructorArgs: ['chrome'])
+task copyChromeCommonFiles (type: CopyCommonFilesTask, constructorArgs: ['chrome'])
+task buildChrome {
+    doLast {
+        println 'chrome built'
+    }
+}
+buildChrome.dependsOn copyChromeBrowserFiles
+buildChrome.dependsOn copyChromeCommonFiles
+
+//
+// build all
+//
+task buildAll {
+    doLast {
+        println 'all built'
+    }
+}
+buildAll.dependsOn buildChrome
+buildAll.dependsOn buildFirefox
+buildAll.dependsOn buildEdge
+
+
+class CopyBrowserFilesTask extends Copy {
+    @javax.inject.Inject
+    CopyBrowserFilesTask(String browser) {
+        from 'src/main/browser/' + browser
+        into 'build/' + browser
+    }
+}
+
+class CopyCommonFilesTask extends Copy {
+    @javax.inject.Inject
+    CopyCommonFilesTask(String browser) {
+        from 'src/main/common/'
+        into 'build/' + browser
+    }
+}
