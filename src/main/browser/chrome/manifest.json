@@ -11,6 +11,7 @@
   ],
   "background": {
     "scripts": [
+      "browser-polyfill.js",
       "background.js"
     ],
     "persistent": true
@@ -20,6 +21,7 @@
       "<all_urls>"
     ],
     "js": [
+      "browser-polyfill.js",
       "content.js"
     ]
   }]
