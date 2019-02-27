@@ -1,6 +1,6 @@
 # Page Objects Builder
 
-Assists construction of Page Objects for automated testing (e.g. with Selenium).
+Assists construction of Page Objects for automated testing (e.g. with Selenium). The plugin targets the Firefox, Chrome and Edge browsers.
 
 # Development
 
@@ -16,14 +16,12 @@ Below are useful commands for building (build) and debugging (dev) the extension
 
     npm run dev chrome
     npm run dev firefox
-    npm run dev opera
     npm run dev edge
 
 ## Build
 
     npm run build chrome
     npm run build firefox
-    npm run build opera
     npm run build edge
 
 ## Environment
