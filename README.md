@@ -2,6 +2,12 @@
 
 Assists construction of Page Objects for automated testing (e.g. with Selenium).
 
+# Development
+
+The extension is built using [webextension-toolbox](https://github.com/HaNdTriX/webextension-toolbox)
+
+Below are useful commands for building (build) and debugging (dev) the extension. See the docs link above for more information on the build tooling.
+
 ## Install
 
 	$ npm install
@@ -24,6 +30,3 @@ Assists construction of Page Objects for automated testing (e.g. with Selenium).
 
 The build tool also defines a variable named `process.env.NODE_ENV` in your scripts. 
 
-## Docs
-
-* [webextension-toolbox](https://github.com/HaNdTriX/webextension-toolbox)
