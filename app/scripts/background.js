@@ -1,3 +1,4 @@
+// reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function(details)
     {
     console.log('previousVersion', details.previousVersion)
@@ -19,7 +20,7 @@ function connected(port)
     user_action_port = port;
     user_action_port.onMessage.addListener(function(message)
         {
-        console.log("Received " + message.event_type + " event: " + message.description);
+        console.log("Received " + message.event_type + " on element: " + JSON.stringify(message.element));
         });
     }
 browser.runtime.onConnect.addListener(connected);
