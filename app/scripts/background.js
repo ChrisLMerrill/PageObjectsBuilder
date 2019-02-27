@@ -1,16 +1,25 @@
-browser.runtime.onInstalled.addListener((details) => {
-  console.log('previousVersion', details.previousVersion)
-});
+browser.runtime.onInstalled.addListener(function(details)
+    {
+    console.log('previousVersion', details.previousVersion)
+    });
 
 // browser.browserAction.setBadgeText({
 //   text: 'Hello'
 // });
 
-console.log("POB2 started!");
+console.log("PageObjectsBuilder started.");
 
-function handleMessage(request, sender, sendResponse)
+//
+// Setup port to listen for user-action events
+//
+var user_action_port;
+function connected(port)
     {
-    console.log("Received event: " + request.message);
+    if (port.name === 'user-action')
+    user_action_port = port;
+    user_action_port.onMessage.addListener(function(message)
+        {
+        console.log("Received " + message.event_type + " event: " + message.description);
+        });
     }
-
-browser.runtime.onMessage.addListener(handleMessage);
+browser.runtime.onConnect.addListener(connected);
