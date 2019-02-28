@@ -43,6 +43,7 @@
   "permissions": [
     "cookies",
     "webNavigation",
-    "webRequest"
+    "webRequest",
+    "contextMenus"
   ]
 }

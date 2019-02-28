@@ -15,3 +15,15 @@ document.addEventListener('click', function (event)
     message.element.id = element.id;
     user_actions_port.postMessage(message);
     });
+
+// on context menu activation event, listen for context menu action from the extension
+document.addEventListener('contextmenu', function(event)
+    {
+    console.log('contextmenu event on element ' + event.target.nodeName);
+    var context_port = browser.runtime.connect({"name":"context-menu"});
+    context_port.onMessage.addListener(function(message)
+        {
+        console.log('received menu action: ' + message.action);
+        // TODO, add the element to the model
+        });
+    });

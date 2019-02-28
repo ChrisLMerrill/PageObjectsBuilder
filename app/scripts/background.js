@@ -14,7 +14,7 @@ console.log("PageObjectsBuilder started.");
 // Setup port to listen for user-action events
 //
 var user_action_port;
-function connected(port)
+browser.runtime.onConnect.addListener(function connected(port)
     {
     if (port.name === 'user-action')
     user_action_port = port;
@@ -23,4 +23,42 @@ function connected(port)
         console.log("Received " + message.event_type + " on element: " + JSON.stringify(message.element));
         });
     }
-browser.runtime.onConnect.addListener(connected);
+);
+
+//
+// Setup port for sending context menu events
+//
+var context_menu_port;
+browser.runtime.onConnect.addListener(function(port)
+    {
+    context_menu_port = port;
+    });
+// TODO reset the port when the port disconnects?
+
+//
+// Context menus
+//
+
+browser.contextMenus.create({
+  id: "add-element",
+  title: "Add element",
+  contexts: ["page"]
+});
+
+browser.contextMenus.create({
+  id: "add-page",
+  title: "Add page",
+  contexts: ["page"]
+});
+
+//
+// Send context-menu action to the page script
+//
+browser.contextMenus.onClicked.addListener(function(info, tab) {
+  switch (info.menuItemId) {
+      case "add-element":
+      case "add-page":
+        context_menu_port.postMessage({action: info.menuItemId});
+      break;
+  }
+});
