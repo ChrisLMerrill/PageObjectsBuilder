@@ -64,29 +64,12 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
 
 
 browser.browserAction.onClicked.addListener(function (tab) {
-    var createData =
+    const createData =
     {
-        type: "detached_panel",
+        type: "popup",
         url: "pages/main.html",
-        titlePreface: "PageObjects Builder: ",
         width: 600,
         height: 400
     };
     browser.windows.create(createData);
 });
-
-
-class ShoppingList extends React.Component {
-    render() {
-    return (
-        <div className="shopping-list">
-        <h1>Shopping List for {this.props.name}</h1>
-        <ul>
-          <li>Instagram</li>
-          <li>WhatsApp</li>
-          <li>Oculus</li>
-        </ul>
-      </div>
-    );
-    }
-}
