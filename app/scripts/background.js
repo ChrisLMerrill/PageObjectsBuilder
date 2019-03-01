@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {createStore} from "redux";
+import {wrapStore} from 'webext-redux';
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
     console.log('previousVersion', details.previousVersion)
@@ -62,7 +63,6 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
     }
 });
 
-
 browser.browserAction.onClicked.addListener(function (tab) {
     const createData =
     {
@@ -73,3 +73,26 @@ browser.browserAction.onClicked.addListener(function (tab) {
     };
     browser.windows.create(createData);
 });
+
+
+const pages = [];
+pages[0] = {id:"page0", name:"Origin Page"};
+pages[1] = {id:"page1", name:"First Page"};
+const initialState = {pages: pages};
+
+function rootReducer(state = initialState, action)
+    {
+    if (action.type === "add-page")
+        {
+console.log("Adding page " + action.payload.name);
+        const new_pages = state.pages.slice();
+        // const index = new_pages.length;
+        new_pages.push(action.payload);
+        // new_pages.push({id:"page"+index, name:index+"th page"});
+        return {pages:new_pages};
+        }
+    return state;
+    }
+
+const store = createStore(rootReducer);
+wrapStore(store);
