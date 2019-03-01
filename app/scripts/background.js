@@ -1,3 +1,5 @@
+import React from 'react';
+
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
     console.log('previousVersion', details.previousVersion)
@@ -72,3 +74,19 @@ browser.browserAction.onClicked.addListener(function (tab) {
     };
     browser.windows.create(createData);
 });
+
+
+class ShoppingList extends React.Component {
+    render() {
+    return (
+        <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+    }
+}

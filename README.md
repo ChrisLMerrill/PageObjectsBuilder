@@ -1,6 +1,6 @@
 # Page Objects Builder
 
-Assists construction of Page Objects for automated testing (e.g. with Selenium). The plugin targets the Firefox, Chrome and Edge browsers.
+Assists construction of Page Objects for automated testing (e.g. with Selenium). The plugin targets the Firefox, Chrome and Edge browsers (and Opera, in theory, but not tested).
 
 # Development
 
