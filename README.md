@@ -11,6 +11,7 @@ Below are useful commands for building (build) and debugging (dev) the extension
 ## Install
 
 	$ npm install
+	$ npm install react react-dom webext-redux
 
 ## Development
 
