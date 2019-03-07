@@ -8,7 +8,7 @@ import AddPageForm from '../components/AddPageForm';
 console.log('Main UI window displayed.');
 
 export function addPage(payload) {
-    return { type: "add-page", payload};
+    return { type: "add-page", payload:payload};
 }
 
 const store = new Store();

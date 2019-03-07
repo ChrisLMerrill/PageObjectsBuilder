@@ -36,10 +36,10 @@ class AddPageFormDisconnected extends Component {
                 <div>
                     <label htmlFor="name">Name</label>
                     <input type="text" id="name" value={name} onChange={this.handleChange}/>
+                    <button type="submit" onSubmit={this.handleSubmit}>
+                        Add
+                    </button>
                 </div>
-                <button type="submit" onSubmit={this.handleSubmit}>
-                    Save
-                </button>
             </form>
         );
     }
