@@ -38,13 +38,13 @@ browser.runtime.onConnect.addListener(function connected(port) {
 browser.contextMenus.create({
     id: "add-element",
     title: "Add element",
-    contexts: ["page"]
+    contexts: ["all"]
 });
 
 browser.contextMenus.create({
     id: "add-page",
     title: "Add page",
-    contexts: ["page"]
+    contexts: ["all"]
 });
 
 //
@@ -83,10 +83,14 @@ function rootReducer(state = initialState, action)
         {
         console.log("Adding page " + action.payload.name);
         const new_pages = state.pages.slice();
-        // const index = new_pages.length;
         new_pages.push(action.payload);
-        // new_pages.push({id:"page"+index, name:index+"th page"});
         return {pages: new_pages};
+        }
+    if (action.type === "add-element")
+        {
+        console.log("Adding element of type " + action.payload.type);
+        // TODO, add element to current page
+        return state;
         }
     return state;
     }
