@@ -11,13 +11,12 @@ Below are useful commands for building (build) and debugging (dev) the extension
 ## Install
 
 	$ npm install
-	$ npm install react react-dom webext-redux
 
 ## Development
 
-    npm run dev chrome
-    npm run dev firefox
-    npm run dev edge
+    webextension-toolbox dev chrome
+    webextension-toolbox dev firefox
+    webextension-toolbox dev edge
 
 ## Build
 
@@ -28,4 +27,3 @@ Below are useful commands for building (build) and debugging (dev) the extension
 ## Environment
 
 The build tool also defines a variable named `process.env.NODE_ENV` in your scripts. 
-
