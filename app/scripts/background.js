@@ -81,9 +81,11 @@ function rootReducer(state = initialState, action)
     {
     if (action.type === "add-page")
         {
-        console.log("Adding page " + action.payload.name);
+        var new_page = action.payload;
+        new_page.id = 'page' + state.pages.length;
+        console.log("Adding page " + new_page.name);
         const new_pages = state.pages.slice();
-        new_pages.push(action.payload);
+        new_pages.push(new_page);
         return {pages: new_pages};
         }
     if (action.type === "add-element")
