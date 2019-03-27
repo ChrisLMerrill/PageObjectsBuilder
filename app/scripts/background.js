@@ -1,6 +1,10 @@
+// 3rd party imports
 import React from 'react';
 import {createStore} from "redux";
 import {wrapStore} from 'webext-redux';
+
+// project imports
+import {createPages} from './pages';
 
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
@@ -32,7 +36,7 @@ browser.runtime.onConnect.addListener(function connected(port) {
 });
 
 //
-// Context menus
+// Setup the context menu items
 //
 
 browser.contextMenus.create({
@@ -60,7 +64,10 @@ browser.contextMenus.onClicked.addListener(function (info, tab) {
     }
 });
 
-browser.browserAction.onClicked.addListener(function (tab) {
+//
+// Register a pop-up window for the extension button
+//
+browser.browserAction.onClicked.addListener(function () {
     const createData =
         {
         type: "popup",
@@ -71,13 +78,8 @@ browser.browserAction.onClicked.addListener(function (tab) {
     browser.windows.create(createData);
 });
 
-
-const pages = [];
-pages[0] = {id: "page0", name: "Origin Page"};  // TODO remove temporary init data
-pages[1] = {id: "page1", name: "First Page"};  // TODO remove temporary init data
-const initialState = {pages: pages};
-
-function rootReducer(state = initialState, action)
+// the root reducer dispatches an action to the correct reducer function
+function rootReducer(state = {pages: createPages()}, action)
     {
     if (action.type === "add-page")
         {
@@ -97,5 +99,6 @@ function rootReducer(state = initialState, action)
     return state;
     }
 
+// setup the store and wrap it in the webext-redux wrapper
 const store = createStore(rootReducer);
 wrapStore(store);
