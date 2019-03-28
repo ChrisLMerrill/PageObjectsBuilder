@@ -5,6 +5,7 @@ import {wrapStore} from 'webext-redux';
 
 // project imports
 import {createPages, addPage} from './pages';
+import {addElement} from './elements';
 import {newState} from './state';
 
 // reports version changes for debugging aid.
@@ -86,8 +87,7 @@ function rootReducer(state = newState(), action)
         return addPage(state, action.payload);
     if (action.type === "add-element")
         {
-        console.log("Adding element of type " + action.payload.type);
-        // TODO, add element to current page
+        addElement(state, action.payload);
         return state;
         }
     return state;

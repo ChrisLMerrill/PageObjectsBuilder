@@ -1,6 +1,9 @@
 import {Store} from 'webext-redux';
 const store = new Store();
 
+import {createElement} from './elements';
+
+
 console.log("PageObjectsBuilder content script is running in the page");
 
 // open port for sending user-action messages
@@ -21,10 +24,10 @@ document.addEventListener('click', function (event)
         user_actions_port.postMessage(message);
         }
     else if (event.button === 2)
-        selected_element = event.target;
+        selected_node = event.target;
 });
 
-var selected_element = null;
+var selected_node = null;
 
 // on context menu activation event, listen for context menu action from the extension
 document.addEventListener('contextmenu', function(event)
@@ -43,8 +46,8 @@ document.addEventListener('contextmenu', function(event)
         if (message.action === 'add-element')
             {
             console.log("dispatch the add-element action");
-            store.dispatch({type: "add-element", payload:{type:selected_element.nodeName,id:selected_element.id}});
-            console.log("add-page action has been dispatched.");
+            store.dispatch({type: "add-element", payload:createElement(selected_node)});
+            console.log("add-element action has been dispatched.");
             }
         });
     });
