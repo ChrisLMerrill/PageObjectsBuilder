@@ -14,6 +14,13 @@ const PageListAbs = ({pages,selected}) => (
         {pages.map(page => (
             <li key={page.uid}>
                 {page.title}
+                <ul>
+                    {page.elements.map(element => (
+                        <li key={element.uid}>
+                            {element.type}
+                        </li>
+                    ))}
+                </ul>
             </li>
         ))}
     </ul>

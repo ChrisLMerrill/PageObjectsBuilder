@@ -86,10 +86,7 @@ function rootReducer(state = newState(), action)
     if (action.type === "add-page")
         return addPage(state, action.payload);
     if (action.type === "add-element")
-        {
-        addElement(state, action.payload);
-        return state;
-        }
+        return addElement(state, action.payload);
     return state;
     }
 
