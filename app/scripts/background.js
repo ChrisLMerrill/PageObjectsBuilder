@@ -24,13 +24,7 @@ console.log("PageObjectsBuilder started.");
 //
 var context_menu_port = null;
 browser.runtime.onConnect.addListener(function connected(port) {
-    if (port.name === 'user-action')
-        {
-        port.onMessage.addListener(function (message) {
-            console.log("Received " + message.event_type + " on element: " + JSON.stringify(message.element));
-        });
-        }
-    else if (port.name === 'context-menu')
+    if (port.name === 'context-menu')
         {
         console.log("Connected for context menu");
         context_menu_port = port;
