@@ -11,8 +11,15 @@ export function newPages()
 
 export function addPage(state, new_page)
     {
-    new_page.id = 'page' + state.pages.length;
     const new_pages = state.pages.slice();
     new_pages.push(new_page);
     return newState(new_pages, newSessionWithSelectedPage(state.session, new_page.id));
+    }
+
+export function createPage(title)
+    {
+    let page = {};
+    page.title = title;
+    page.uid = Date.now();
+    return page;
     }

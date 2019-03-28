@@ -1,6 +1,7 @@
 import {Store} from 'webext-redux';
 const store = new Store();
 
+import {createPage} from './pages';
 import {createElement} from './elements';
 
 
@@ -40,7 +41,8 @@ document.addEventListener('contextmenu', function(event)
         if (message.action === 'add-page')
             {
             console.log("about to dispatch the add-page action...");
-            store.dispatch({type: "add-page", payload:{name:document.title}});
+            store.dispatch({type: "add-page", payload:createPage(document.title)});
+            // store.dispatch({type: "add-page", payload:{name:document.title}});
             console.log("add-page action has been dispatched.");
             }
         if (message.action === 'add-element')

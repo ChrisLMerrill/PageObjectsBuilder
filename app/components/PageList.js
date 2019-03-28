@@ -6,14 +6,14 @@ import {connect} from "react-redux";
  */
 
 const mapStateToProps = state => {
-    return { pages: state.pages };
+    return { pages: state.pages, selected: state.session.current_page };
 };
 
-const PageListAbs = ({pages}) => (
+const PageListAbs = ({pages,selected}) => (
     <ul>
         {pages.map(page => (
-            <li key={page.id}>
-                {page.name}
+            <li key={page.uid}>
+                {page.title}
             </li>
         ))}
     </ul>
