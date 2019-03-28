@@ -5,6 +5,7 @@ import {wrapStore} from 'webext-redux';
 
 // project imports
 import {createPages, addPage} from './pages';
+import {newState} from './state';
 
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
@@ -79,7 +80,7 @@ browser.browserAction.onClicked.addListener(function () {
 });
 
 // the root reducer dispatches an action to the correct reducer function
-function rootReducer(state = {pages: createPages()}, action)
+function rootReducer(state = newState(), action)
     {
     if (action.type === "add-page")
         return addPage(state, action.payload);
