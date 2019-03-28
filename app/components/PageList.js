@@ -1,5 +1,6 @@
 import React from 'react';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
+import ElementList from './ElementList';
 
 /**
  * Christopher L Merrill, Copyright 2019
@@ -14,13 +15,7 @@ const PageListAbs = ({pages,selected}) => (
         {pages.map(page => (
             <li key={page.uid}>
                 {page.title}
-                <ul>
-                    {page.elements.map(element => (
-                        <li key={element.uid}>
-                            {element.type}
-                        </li>
-                    ))}
-                </ul>
+                <ElementList elements={page.elements} />
             </li>
         ))}
     </ul>
