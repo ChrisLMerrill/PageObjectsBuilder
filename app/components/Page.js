@@ -8,15 +8,18 @@ import {connect} from "react-redux";
 import ElementList from './ElementList'
 
 const mapStateToProps = state => {
-    return { };
+    return { selected_page: state.session.current_page };
 };
 
-const PageImpl = (props) => (
-    <div>
-        {props.page.title}
-        <ElementList elements={props.page.elements} />
-    </div>
-);
+const PageImpl = (props) => {
+    let selected = props.selected_page === props.page.uid;
+    return (
+        <div>
+            <span className={selected ? "current" : ""}>{props.page.title}</span>
+            { selected ? <ElementList elements={props.page.elements} /> : "" }
+        </div>
+    );
+};
 
 const Page = connect(mapStateToProps)(PageImpl);
 
