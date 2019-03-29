@@ -1,3 +1,7 @@
 span.current {
     font-weight: bold;
 }
+
+.clickable {
+    cursor: pointer;
+}

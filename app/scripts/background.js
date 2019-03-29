@@ -6,7 +6,7 @@ import {wrapStore} from 'webext-redux';
 // project imports
 import {createPages, addPage} from './pages';
 import {addElement} from './elements';
-import {newState} from './state';
+import {newState, selectPage} from './state';
 
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
@@ -81,6 +81,9 @@ function rootReducer(state = newState(), action)
         return addPage(state, action.payload);
     if (action.type === "add-element")
         return addElement(state, action.payload);
+    if (action.type === "select-page")
+        return selectPage(state, action.payload);
+    console.log("Unhandled action (" + action.type + ") received: " + JSON.stringify(action.payload));
     return state;
     }
 
