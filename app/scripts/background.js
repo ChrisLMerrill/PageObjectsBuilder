@@ -4,9 +4,7 @@ import {createStore} from "redux";
 import {wrapStore} from 'webext-redux';
 
 // project imports
-import {createPages, addPage} from './pages';
-import {addElement} from './elements';
-import {newState, selectPage} from './state';
+import {rootReducer} from './reducer';
 
 // reports version changes for debugging aid.
 browser.runtime.onInstalled.addListener(function (details) {
@@ -20,7 +18,7 @@ browser.runtime.onInstalled.addListener(function (details) {
 console.log("PageObjectsBuilder started.");
 
 //
-// Setup port to listen for user-action and context-menu events
+// Setup port to listen for context-menu events
 //
 var context_menu_port = null;
 browser.runtime.onConnect.addListener(function connected(port) {
@@ -74,19 +72,20 @@ browser.browserAction.onClicked.addListener(function () {
     browser.windows.create(createData);
 });
 
-// the root reducer dispatches an action to the correct reducer function
-function rootReducer(state = newState(), action)
-    {
-    if (action.type === "add-page")
-        return addPage(state, action.payload);
-    if (action.type === "add-element")
-        return addElement(state, action.payload);
-    if (action.type === "select-page")
-        return selectPage(state, action.payload);
-    console.log("Unhandled action (" + action.type + ") received: " + JSON.stringify(action.payload));
-    return state;
-    }
-
 // setup the store and wrap it in the webext-redux wrapper
 const store = createStore(rootReducer);
 wrapStore(store);
+
+var stored_stuff = null;
+let stored = browser.storage.local.get('stuff');
+stored.then((items) => {
+    if (items.stuff === 'undefined')
+        stored_stuff = 0;
+    else
+        stored_stuff = items.stuff;
+    console.log('stored=' + stored_stuff);
+
+    stored_stuff++;
+    browser.storage.local.set({stuff:stored_stuff});
+});
+

@@ -43,6 +43,7 @@
     "cookies",
     "webNavigation",
     "webRequest",
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ]
 }
