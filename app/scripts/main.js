@@ -3,7 +3,7 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 import {Store} from 'webext-redux';
 import PageList from '../components/PageList';
-import AddPageForm from '../components/AddPageForm';
+import {SaveInternalForm} from '../components/SaveInternal';
 
 console.log('Pop-up script is running...');
 
@@ -17,7 +17,10 @@ console.log('store is connected.');
 
 const unsubscribe = store.subscribe(() => {
     unsubscribe();
-    render(<Provider store={store}><PageList/><AddPageForm/></Provider>, document.getElementById("root"));
+    render(<Provider store={store}>
+        <SaveInternalForm/>
+        <h1>Pages</h1><PageList/>
+    </Provider>, document.getElementById("root"));
 });
 
 console.log('Popup script is done.');

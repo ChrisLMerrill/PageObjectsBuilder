@@ -24,13 +24,12 @@ setupContextMenus();
 // Register a pop-up window for the extension button
 //
 browser.browserAction.onClicked.addListener(function () {
-    const createData =
-        {
+    const createData = {
         type: "popup",
         url: "pages/main.html",
-        width: 600,
-        height: 400
-        };
+        width: 800,
+        height: 600
+    };
     browser.windows.create(createData);
 });
 
@@ -38,16 +37,26 @@ browser.browserAction.onClicked.addListener(function () {
 const store = createStore(rootReducer);
 wrapStore(store);
 
-var stored_stuff = null;
-let stored = browser.storage.local.get('stuff');
-stored.then((items) => {
-    if (items.stuff === 'undefined')
-        stored_stuff = 0;
-    else
-        stored_stuff = items.stuff;
-    console.log('stored=' + stored_stuff);
+function loadState() {
+    let fetch_operation = browser.storage.local.get('state');
+    fetch_operation.then((items) => {
+        if (items.state)
+            store.dispatch({type: 'load-state', payload: items.state});
+    });
+}
+loadState();
 
-    stored_stuff++;
-    browser.storage.local.set({stuff:stored_stuff});
+var message_port = browser.runtime.onConnect.addListener(function(port) {
+    if (port.name === 'messages')
+        port.onMessage.addListener(function (message) {
+        if (message.type === 'save-internal') {
+            browser.storage.local.set({state:store.getState()});
+        }
+        else if (message.type === 'load-internal') {
+            loadState();
+        }
+        else if (message.type === 'clear-state') {
+            store.dispatch({type:'clear-state'});
+        }
+    })
 });
-
