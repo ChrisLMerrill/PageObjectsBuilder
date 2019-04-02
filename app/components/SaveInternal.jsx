@@ -3,9 +3,10 @@
  */
 
 import React, { Component } from "react";
+import {connect} from "react-redux";
 
 import {sendMessage} from '../scripts/message-client';
-import {connect} from "react-redux";
+import {LoadPages} from './LoadPages';
 
 const mapStateToProps = state => {
     return { pages: state.pages };
@@ -43,6 +44,7 @@ class SaveFormDisconnected extends Component {
                     <button type="submit" onClick={this.clear}>Clear</button>
                     <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.props.pages))}`}
                        download="pages.json">Download all</a>
+                    <LoadPages/>
                 </div>
             </form>
         );
