@@ -5,8 +5,13 @@
 import React, { Component } from "react";
 
 import {sendMessage} from '../scripts/message-client';
+import {connect} from "react-redux";
 
-export class SaveInternalForm extends Component {
+const mapStateToProps = state => {
+    return { pages: state.pages };
+};
+
+class SaveInternalFormDisconnected extends Component {
     constructor() {
         super();
         this.saveInternal = this.saveInternal.bind(this);
@@ -36,8 +41,12 @@ export class SaveInternalForm extends Component {
                     <button type="submit" onClick={this.saveInternal}>Save in browser storage</button>
                     <button type="submit" onClick={this.loadInternal}>Load from browser storage</button>
                     <button type="submit" onClick={this.clear}>Clear</button>
+                    <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.props.pages))}`}
+                       download="data.json">Download all</a>
                 </div>
             </form>
         );
     }
 }
+
+export const SaveInternalForm = connect(mapStateToProps)(SaveInternalFormDisconnected);
