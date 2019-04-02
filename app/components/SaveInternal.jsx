@@ -11,7 +11,7 @@ const mapStateToProps = state => {
     return { pages: state.pages };
 };
 
-class SaveInternalFormDisconnected extends Component {
+class SaveFormDisconnected extends Component {
     constructor() {
         super();
         this.saveInternal = this.saveInternal.bind(this);
@@ -42,11 +42,11 @@ class SaveInternalFormDisconnected extends Component {
                     <button type="submit" onClick={this.loadInternal}>Load from browser storage</button>
                     <button type="submit" onClick={this.clear}>Clear</button>
                     <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.props.pages))}`}
-                       download="data.json">Download all</a>
+                       download="pages.json">Download all</a>
                 </div>
             </form>
         );
     }
 }
 
-export const SaveInternalForm = connect(mapStateToProps)(SaveInternalFormDisconnected);
+export const SaveForm = connect(mapStateToProps)(SaveFormDisconnected);
