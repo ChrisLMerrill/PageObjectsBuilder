@@ -42,7 +42,7 @@ class SaveFormDisconnected extends Component {
                     <button type="submit" onClick={this.saveInternal}>Save in browser storage</button>
                     <button type="submit" onClick={this.loadInternal}>Load from browser storage</button>
                     <button type="submit" onClick={this.clear}>Clear</button>
-                    <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.props.pages))}`}
+                    <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify({pages: this.props.pages,version:1}))}`}
                        download="pages.json">Download all</a>
                     <LoadPages/>
                 </div>

@@ -19,7 +19,8 @@ class LoadPagesDisconnected extends Component {
     }
 
     handleFileRead(event) {
-        let pages = JSON.parse(event.target.result);
+        let file = JSON.parse(event.target.result);
+        let pages = file.pages;
         if (pages.length)
             for (var i=0; i<pages.length; i++)
                 this.props.loadPage(pages[i]);
